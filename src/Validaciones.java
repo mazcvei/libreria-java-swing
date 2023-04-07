@@ -14,22 +14,21 @@ public class Validaciones {
 			return false; // Si hay excepción, la fecha es inválida
 		}
 	}
-	
-	
+
+
 	public static boolean validarString(String cadena) {
 		if(cadena.isEmpty() || cadena.length()<1) {
 			return false;
 		}
-		System.out.println("ok");
-		return cadena.matches("[a-zA-Z0-9\\s]+");
+		return cadena.matches("^[\\p{L}\\p{N}\\sáéíóúÁÉÍÓÚñÑ]+$");
 	}
 	public static boolean validarInt(String str) {
-		 try {
-		        Integer.parseInt(str);
-		        return true;
-		    } catch (NumberFormatException e) {
-		        return false;
-		    }
+		try {
+			Integer.parseInt(str);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 

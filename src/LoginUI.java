@@ -17,12 +17,12 @@ public class LoginUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private MainConnection connection;
+    private AdminController connection;
     // End of variables declaration//GEN-END:variables
     /**
      * Creates new form LibreriaUI
      */
-    public LoginUI(MainConnection connection) {
+    public LoginUI(AdminController connection) {
     	this.connection = connection;
         initComponents(this);
         this.setResizable(false);
@@ -88,7 +88,7 @@ public class LoginUI extends javax.swing.JFrame {
                 //Login ok: user: mario - password: 123456
                 if(connection.checkAuth(jTextField1.getText(),jTextField2.getText())) {
                     JOptionPane.showMessageDialog(context, "Login correcto","Login",JOptionPane.INFORMATION_MESSAGE);
-                    PrincipalUI principalUI = new PrincipalUI(context.connection);
+                    PrincipalUI principalUI = new PrincipalUI();
                     context.dispose();
                     principalUI.setVisible(true);
                     

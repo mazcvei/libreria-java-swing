@@ -33,7 +33,7 @@ public class ProyectoLiberia extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            	MainConnection connection = new MainConnection();
+            	AdminController connection = new AdminController();
                 new LoginUI(connection).setVisible(true);
             }
         });

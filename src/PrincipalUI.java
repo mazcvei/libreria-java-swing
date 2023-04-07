@@ -5,9 +5,9 @@ public class PrincipalUI extends javax.swing.JFrame {
 	    /**
 	     * Creates new form PrincipalUI
 	     */
-	    private MainConnection connection;
-	    public PrincipalUI(MainConnection connection) {
-	    	this.connection = connection;
+	   
+	    public PrincipalUI() {
+	   
 	        initComponents();
 	        this.setResizable(false);
 	    }
@@ -25,6 +25,7 @@ public class PrincipalUI extends javax.swing.JFrame {
 	        jButton1 = new javax.swing.JButton();
 	        jButton3 = new javax.swing.JButton();
 	        jButton2 = new javax.swing.JButton();
+	        buttonTematicas = new javax.swing.JButton();
 	        jSeparator1 = new javax.swing.JSeparator();
 
 	        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,18 +44,21 @@ public class PrincipalUI extends javax.swing.JFrame {
 	                jButton1ActionPerformed(evt);
 	            }
 	        });
+	        jButton1.setBounds(220, 110, 220, 29);
 	        jPanel1.add(jButton1);
-	        jButton1.setBounds(220, 80, 220, 29);
-
-	        jButton3.setText("Cerrar sesión");
-	        jButton3.addActionListener(new java.awt.event.ActionListener() {
+	        
+	        buttonTematicas.setBackground(new java.awt.Color(0, 204, 51));
+	        buttonTematicas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+	        buttonTematicas.setForeground(new java.awt.Color(0, 0, 0));
+	        buttonTematicas.setText("Gestionar Temáticas");
+	        buttonTematicas.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                jButton3ActionPerformed(evt);
+	                tematicasActionPerformed(evt);
 	            }
 	        });
-	        jPanel1.add(jButton3);
-	        jButton3.setBounds(260, 250, 140, 30);
-
+	        buttonTematicas.setBounds(220, 140, 220, 29);
+	        jPanel1.add(buttonTematicas);
+	        
 	        jButton2.setBackground(new java.awt.Color(0, 204, 51));
 	        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 	        jButton2.setForeground(new java.awt.Color(0, 0, 0));
@@ -64,12 +68,27 @@ public class PrincipalUI extends javax.swing.JFrame {
 	                jButton2ActionPerformed(evt);
 	            }
 	        });
+	        jButton2.setBounds(220, 170, 220, 29);
 	        jPanel1.add(jButton2);
-	        jButton2.setBounds(220, 140, 222, 29);
+	        
+	        
+
+	        jButton3.setText("Cerrar sesión");
+	        jButton3.addActionListener(new java.awt.event.ActionListener() {
+	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	                jButton3ActionPerformed(evt);
+	            }
+	        });
+	        jButton3.setBounds(260, 280, 140, 30);
+	        jPanel1.add(jButton3);
+	        
+
+	       
+	        
 
 	        jSeparator1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 	        jPanel1.add(jSeparator1);
-	        jSeparator1.setBounds(100, 200, 450, 1);
+	        jSeparator1.setBounds(100, 230, 450, 1);
 
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 	        getContentPane().setLayout(layout);
@@ -86,14 +105,21 @@ public class PrincipalUI extends javax.swing.JFrame {
 	        this.setLocationRelativeTo(null);
 	    }// </editor-fold>                        
 
+	    
+	    private void tematicasActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	    	TematicasUI mui = new TematicasUI(new TematicasController());
+	    	mui.setVisible(true);
+	    	this.dispose();
+	    }    
 	    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        System.out.println("Boton gestionar libros");
 	    }                                        
 
 	    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { 
-	    	this.dispose();
-	    	ManageBookUI mui = new ManageBookUI(this.connection);
+	    	ManageBookUI mui = new ManageBookUI(new LibrosController());
 	    	mui.setVisible(true);
+	    	this.dispose();
+	    	
 	    
 	    }                                        
 
@@ -107,6 +133,13 @@ public class PrincipalUI extends javax.swing.JFrame {
 	    private javax.swing.JButton jButton1;
 	    private javax.swing.JButton jButton2;
 	    private javax.swing.JButton jButton3;
+	    private javax.swing.JButton buttonTematicas;
 	    private javax.swing.JPanel jPanel1;
 	    private javax.swing.JSeparator jSeparator1;
+	    
+	    public static void main(String [] args) {
+			
+			PrincipalUI m = new PrincipalUI();
+			m.setVisible(true);
+		}
 }

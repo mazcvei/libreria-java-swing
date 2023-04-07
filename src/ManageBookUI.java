@@ -32,7 +32,6 @@ public class ManageBookUI extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabelComboBox;
 
 	private javax.swing.JTextField textFieldTitulo;
-	private javax.swing.JTextField textFieldTematica;
 	private javax.swing.JTextField textFieldAutor;
 	private javax.swing.JTextField textFieldIsbn;
 	private javax.swing.JTextField textFieldNumPags;
@@ -52,6 +51,7 @@ public class ManageBookUI extends javax.swing.JFrame {
 	private javax.swing.JButton jButtonMostrarDatos;
 	private javax.swing.JButton jButtonActualizarDatos;
 	private javax.swing.JButton jButtonBorrarDato;
+	private javax.swing.JButton jButtonAtras;
 	private JTable tablaLibros;
 	private DefaultTableModel model;
 	private JComboBox<String> comboBoxISBN;
@@ -65,14 +65,13 @@ public class ManageBookUI extends javax.swing.JFrame {
 	/**
 	 * Creates new form PrincipalUI
 	 */
-	private MainConnection connection;
-	public ManageBookUI(MainConnection connection) {
+	private LibrosController connection;
+	public ManageBookUI(LibrosController connection) {
 		this.connection = connection;
 		initComponents(this);
 		this.setResizable(false);
 		libros = new ArrayList<Libro>();
 		formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-
 
 	}
 
@@ -85,13 +84,6 @@ public class ManageBookUI extends javax.swing.JFrame {
 		jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 		jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
 		jPanel1.setLayout(null);
-
-		/*
-	    	jLabel1 = new javax.swing.JLabel();
-	    	jLabel1.setFont(new java.awt.Font("Dialog", 1, 14));
-	    	jLabel1.setText("ID Libro");
-	    	jLabel1.setBounds(20, 30,160,25);
-		 */
 
 		jLabel2 = new javax.swing.JLabel();
 		jLabel2.setFont(new java.awt.Font("Dialog", 1, 14));
@@ -259,8 +251,16 @@ public class ManageBookUI extends javax.swing.JFrame {
 		sp.setBounds(20, 320, 750, 180);
 		jPanel1.add(sp, BorderLayout.CENTER);
 
-
-
+		jButtonAtras = new javax.swing.JButton();
+		jButtonAtras.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+		jButtonAtras.setText("Volver");
+		jButtonAtras.setBounds(325, 520, 140, 30);
+		jButtonAtras.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				volverEvent(evt);
+			}
+		});
+		jPanel1.add(jButtonAtras);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -277,6 +277,12 @@ public class ManageBookUI extends javax.swing.JFrame {
 		context.setLocationRelativeTo(null);
 	}// </editor-fold>                        
 
+	private void volverEvent(java.awt.event.ActionEvent evt) {   
+    	PrincipalUI pui = new PrincipalUI();
+    	pui.setVisible(true);
+    	this.dispose();
+	}     
+	
 	private void borrarDatoEvent(java.awt.event.ActionEvent evt) {                                         
 		System.out.println("Boton borrar libro");
 		if(libroBusqueda!=null) {
@@ -284,8 +290,7 @@ public class ManageBookUI extends javax.swing.JFrame {
 					"Confirmación", JOptionPane.YES_NO_OPTION);
 
 			if (opcion == JOptionPane.YES_OPTION) {
-				System.out.println(libros.size());
-				System.out.println(libroBusqueda.toString());
+			
 				if(connection.eliminarLibro(libroBusqueda)) {
 					comboBoxISBN.removeItem(libroBusqueda.getIsbn());
 					int columna = 3; // ISBN
@@ -301,7 +306,6 @@ public class ManageBookUI extends javax.swing.JFrame {
 						((DefaultTableModel) t.getModel()).removeRow(filaAEliminar);
 					}
 					textFieldTitulo.setText("");
-					textFieldTematica.setText("");
 					textFieldAutor.setText("");
 					textFieldIsbn.setText("");
 					textFieldNumPags.setText("") ;
@@ -364,7 +368,6 @@ public class ManageBookUI extends javax.swing.JFrame {
 					nuevoLibro.getIsbn(), nuevoLibro.getNumPaginas(), nuevoLibro.getFechaPublicacion(), nuevoLibro.getStock()});
 			JOptionPane.showMessageDialog(this, "¡Libro añadido correctamente!","Libro añadido",JOptionPane.INFORMATION_MESSAGE);
 			textFieldTitulo.setText("");
-			textFieldTematica.setText("");
 			textFieldAutor.setText("");
 			textFieldIsbn.setText("");
 			textFieldNumPags.setText("") ;
@@ -468,7 +471,7 @@ public class ManageBookUI extends javax.swing.JFrame {
 	}
 
 	public static void main(String [] args) {
-		MainConnection connection = new MainConnection();
+		LibrosController connection = new LibrosController();
 		ManageBookUI m = new ManageBookUI(connection);
 		m.setVisible(true);
 	}
